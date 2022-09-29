@@ -17,6 +17,7 @@ cd src
 
 git clone git@github.com:ivalab/simData.git
 git clone git@github.com:ivaROS/ivaHandy.git
+git clone --recurse-dubmodules git@github.com:rickstaa/realsense-ros-gazebo.git
 ```
 
 Then launch one of the demos.
@@ -26,8 +27,16 @@ Then launch one of the demos.
 source devel/setup.zsh
 
 roslaunch handy_warehouse_demo empty_world.launch
-roslaunch handy_warehouse_demo hammer.launch
 ```
+
+Here's a list of launch files included in this project, building up into tasks of larger complexity.
+
+| project              | name        | description                                        |
+| -------------------- | ----------- | -------------------------------------------------- |
+| handy_warehouse_demo | empty_world | setup an empty world in gazebo                     |
+| handy_warehouse_demo | hammer      | import a model from the 3d warehouse               |
+| handy_warehouse_demo | arm         | launch a world with the handy arm                  |
+| handy_warehouse_demo | camera_box  | launch a world with a realsense camera above a box |
 
 ## reference
 
