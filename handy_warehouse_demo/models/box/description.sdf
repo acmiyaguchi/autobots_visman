@@ -1,39 +1,38 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <sdf version="1.4">
   <model name="box">
     <static>true</static>
     <link name="box_link">
-        <gravity>0.0</gravity>
-        <velocity_decay>
-          <linear>
+      <velocity_decay>
+        <linear>
             0.5
           </linear>
-        </velocity_decay>
+      </velocity_decay>
 
-        <inertial>
-          <mass>10</mass>
-        </inertial>
+      <inertial>
+        <mass>10</mass>
+      </inertial>
 
-        <collision name="box_collision">
-          <surface>
-            <contact>
-                <collide_without_contact>true</collide_without_contact>
-            </contact>
-            <friction>
-              <bullet>
-                <friction>1.0</friction>
-                <friction2>1.0</friction2>
-                <fdir1>0 0 0</fdir1>
-                <rolling_friction>1.0</rolling_friction>
-              </bullet>
-            </friction>
-          </surface>
-          <geometry>
-            <box>
-              <size>0.07 0.07 0.07</size>
-            </box>
-          </geometry>
-        </collision>
+      <collision name="box_collision">
+        <surface>
+          <contact>
+            <collide_without_contact>true</collide_without_contact>
+          </contact>
+          <friction>
+            <bullet>
+              <friction>1.0</friction>
+              <friction2>1.0</friction2>
+              <fdir1>0 0 0</fdir1>
+              <rolling_friction>1.0</rolling_friction>
+            </bullet>
+          </friction>
+        </surface>
+        <geometry>
+          <box>
+            <size>0.07 0.07 0.07</size>
+          </box>
+        </geometry>
+      </collision>
 
       <visual name="box_visual">
         <geometry>
