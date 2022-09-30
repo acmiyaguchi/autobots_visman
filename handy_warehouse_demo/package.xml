@@ -14,8 +14,10 @@
   <build_depend>gazebo_ros</build_depend>
   <exec_depend>gazebo_ros</exec_depend>
 
-  <build_depend>warehouse</build_depend>
+  <exec_depend>finalarm_description</exec_depend>
+  <exec_depend>realsense2_description</exec_depend>
   <exec_depend>warehouse</exec_depend>
+  <exec_depend>xarcro</exec_depend>
 
   <export>
     <!-- https://answers.gazebosim.org/question/6568/uri-paths-to-packages-in-the-sdf-model-file/?answer=7664#post-id-7664 -->

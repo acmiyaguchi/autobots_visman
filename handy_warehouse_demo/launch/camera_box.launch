@@ -1,24 +1,35 @@
 <launch>
+  <!-- https://github.com/rickstaa/realsense-ros/blob/da38e309c2fbe88e45e6148bf5d944486b3e8e98/realsense2_description/launch/view_d435_model_rviz_gazebo.launch -->
 
-  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
-  <arg name="paused" default="true" />
-  <arg name="use_sim_time" default="true" />
-  <arg name="gui" default="true" />
-  <arg name="headless" default="false" />
-  <arg name="debug" default="false" />
-  <arg name="world_name" default="worlds/empty.world" />
+  <!-- arguments for the urdf xacro file, rviz visualization and namespace -->
+  <arg name="name" default="camera" />
+  <arg name="topics_ns" default="camera" />
+  <arg name="add_plug" default="false" />
+  <arg name="publish_pointcloud" default="true" />
+  <arg
+    name="model"
+    default="$(find realsense2_description)/urdf/test_d435_camera.urdf.xacro"
+  />
 
-  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(arg world_name)" />
-    <arg name="debug" value="$(arg debug)" />
-    <arg name="gui" value="$(arg gui)" />
-    <arg name="paused" value="$(arg paused)" />
-    <arg name="use_sim_time" value="$(arg use_sim_time)" />
-    <arg name="headless" value="$(arg headless)" />
+  <!-- this will include the launch file for gazebo given the model -->
+  <include file="$(find realsense2_description)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="name" default="$(arg name)" />
+    <arg name="topics_ns" default="$(arg topics_ns)" />
+    <arg name="add_plug" default="$(arg add_plug)" />
+    <arg name="publish_pointcloud" default="$(arg publish_pointcloud)" />
   </include>
 
   <!-- Load the sdf model only the parameter server -->
+  <param
+    name="robot_description"
+    command="$(find xacro)/xacro --inorder $(arg model)
+      use_nominal_extrinsics:=true
+      publish_pointcloud:=$(arg publish_pointcloud)
+      add_plug:=$(arg add_plug)
+      name:=$(arg name)
+      topics_ns:=$(arg topics_ns)"
+  />
   <param
     name="model_description"
     textfile="$(find handy_warehouse_demo)/models/box/description.sdf"
@@ -31,6 +42,25 @@
     type="spawn_model"
     respawn="false"
     output="screen"
-    args="-sdf -x 0.01 -y 0.01 -z 0.02 -param model_description -model box"
+    args="-sdf -x 0.5 -y 0.01 -z 0.02 -param model_description -model box"
+  />
+
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher"
+  >
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <!-- Load rviz -->
+  <arg name="gui" default="True" />
+  <param name="use_gui" value="$(arg gui)" />
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find realsense2_description)/rviz/urdf.rviz"
+    required="true"
   />
 </launch>
