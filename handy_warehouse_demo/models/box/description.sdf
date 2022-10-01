@@ -40,6 +40,11 @@
             <size>0.07 0.07 0.07</size>
           </box>
         </geometry>
+        <material>
+          <!-- red -->
+          <ambient>1 0 0 1</ambient>
+          <diffuse>1 0 0 1</diffuse>
+        </material>
       </visual>
 
       <sensor name='box_contact' type='contact'>
