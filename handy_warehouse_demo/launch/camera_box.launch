@@ -36,13 +36,14 @@
   />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <arg name="distance" default="0.3" />
   <node
     name="model_spawner"
     pkg="gazebo_ros"
     type="spawn_model"
     respawn="false"
     output="screen"
-    args="-sdf -x 0.5 -y 0.01 -z 0.02 -param model_description -model box"
+    args="-sdf -x $(arg distance) -y 0.01 -z 0.02 -param model_description -model box"
   />
 
   <node
@@ -62,5 +63,13 @@
     type="rviz"
     args="-d $(find realsense2_description)/rviz/urdf.rviz"
     required="true"
+  />
+
+  <node
+    name="image_snapshot"
+    pkg="handy_warehouse_demo"
+    type="realsense_image_snapshot.py"
+    output="screen"
+    args="--sleep 3"
   />
 </launch>
