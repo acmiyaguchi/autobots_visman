@@ -19,6 +19,8 @@
   <exec_depend>warehouse</exec_depend>
   <exec_depend>xarcro</exec_depend>
 
+  <test_depend>ros_pytest</test_depend>
+
   <export>
     <!-- https://answers.gazebosim.org/question/6568/uri-paths-to-packages-in-the-sdf-model-file/?answer=7664#post-id-7664 -->
     <!-- gazebo_ros_paths_plugin automatically adds these to

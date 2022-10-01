@@ -10,6 +10,7 @@
     name="model"
     default="$(find realsense2_description)/urdf/test_d435_camera.urdf.xacro"
   />
+  <arg name="gui" default="true" />
 
   <!-- this will include the launch file for gazebo given the model -->
   <include file="$(find realsense2_description)/launch/gazebo.launch">
@@ -18,6 +19,7 @@
     <arg name="topics_ns" default="$(arg topics_ns)" />
     <arg name="add_plug" default="$(arg add_plug)" />
     <arg name="publish_pointcloud" default="$(arg publish_pointcloud)" />
+    <arg name="gui" value="$(arg gui)" />
   </include>
 
   <!-- Load the sdf model only the parameter server -->
@@ -51,11 +53,10 @@
     pkg="robot_state_publisher"
     type="robot_state_publisher"
   >
-    <param name="publish_frequency" type="double" value="30.0" />
+    <param name="publish_frequency" type="double" value="5.0" />
   </node>
 
   <!-- Load rviz -->
-  <arg name="gui" default="True" />
   <param name="use_gui" value="$(arg gui)" />
   <node
     name="rviz"
@@ -63,6 +64,7 @@
     type="rviz"
     args="-d $(find realsense2_description)/rviz/urdf.rviz"
     required="true"
+    if="$(arg gui)"
   />
 
   <node
@@ -71,5 +73,6 @@
     type="realsense_image_snapshot.py"
     output="screen"
     args="--sleep 3"
+    if="$(arg gui)"
   />
 </launch>

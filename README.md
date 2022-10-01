@@ -18,6 +18,7 @@ cd src
 git clone git@github.com:ivalab/simData.git
 git clone git@github.com:ivaROS/ivaHandy.git
 git clone --recurse-dubmodules git@github.com:rickstaa/realsense-ros-gazebo.git
+git clone git@github.com:machinekoder/ros_pytest.git
 ```
 
 Then launch one of the demos.
