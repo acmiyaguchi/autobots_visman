@@ -39,6 +39,12 @@ Here's a list of launch files included in this project, building up into tasks o
 | handy_warehouse_demo | arm         | launch a world with the handy arm                        |
 | handy_warehouse_demo | camera_box  | launch a world with a realsense camera in front of a box |
 
+To run unit tests:
+
+```bash
+catkin test
+```
+
 ## reference
 
 ### catkin usage
@@ -71,3 +77,7 @@ Contributions are made back where appropriate.
   - launch files, some models, and reference for utilizing rospy
 - [simData](https://github.com/ivalab/simData)
   - model files for common objects
+
+## camera setup
+
+You can read more about camera setup in the [Working with Cameras](docs/camera.md) documentation.
