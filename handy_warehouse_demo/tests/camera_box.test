@@ -1,0 +1,14 @@
+<launch>
+  <include file="$(find handy_warehouse_demo)/launch/camera_box.launch">
+    <arg name="gui" value="false"/>
+  </include>
+
+  <param name="test_module" value="$(find handy_warehouse_demo)/tests"/>
+  <test
+    test-name="camera_box"
+    pkg="ros_pytest"
+    type="ros_pytest_runner"
+    args="-k camera_box -vvv -s"
+    time-limit="60.0"
+  />
+</launch>
