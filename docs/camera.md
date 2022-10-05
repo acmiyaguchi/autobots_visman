@@ -82,7 +82,12 @@ roslaunch handy_warehouse_demo camera_box.launch
 Like before, we get a gazebo and rviz window with the camera sensor and model. We also get a red box placed directly in front of the camera.
 
 ![gazebo block](images/2022-09-29_d435-gazebo-block.png)
-![](images/2022-09-28_d435-rviz-block.png)
+
+_**figure:** a red block positioned in front of the camera_
+
+![rviz block](images/2022-09-29_d435-rviz-block.png)
+
+_**figure:** a depth reading of the block in front of the camera_
 
 We can pass arguments into the launch to adjust the distance:
 
@@ -107,7 +112,7 @@ $ rostopic list
 ...
 ```
 
-We are interested in `/camera/color/image_raw` and `/camera/depth/image_raw` to display the image. With the OpenCV bridge, this is actually fairly simple:
+We are interested in `/camera/color/image_raw` and `/camera/depth/image_raw` to display the image. With the OpenCV bridge, this is straightforward and can be run from a REPL:
 
 ```python
 import rospy
@@ -138,7 +143,7 @@ We demonstrate the use of the bridge inside of [`realsense_image_snapshot.py`](.
 
 On the left we get a color image of the box, and on the right we get a depth image of the box and horizon.
 
-We can also manipulate the box in this environment. We [follow this tutorial](https://varhowto.com/how-to-move-a-gazebo-model-from-command-line-ros/) on moving the model from the command-line, and eventual translate this into a set of unit tests.
+We can also manipulate the box in this environment. We [follow this tutorial](https://varhowto.com/how-to-move-a-gazebo-model-from-command-line-ros/) on moving the model from the command-line, and eventually translate this into a set of unit tests.
 
 ```bash
 rosservice call /gazebo/get_model_state "model_name: box"
