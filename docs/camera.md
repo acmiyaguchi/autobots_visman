@@ -229,6 +229,8 @@ SUMMARY
  * FAILURES: 0
 ```
 
+See [tests/camera_box.test](../handy_warehouse_demo/tests/camera_box.test) and the [test_camera_box.py](../handy_warehouse_demo/tests/test_camera_box.py) for the implementation of the unit tests.
+
 We take use [python_ros](https://github.com/machinekoder/ros_pytest), which will need to be added to the catkin workspace. I personally find it much easier to use pytest over the nose or unittest packages. There are a few things that I found interesting while putting together the tests:
 
 - the launch file for the test is like any other launchfile; here we pass arguments into our `camera_box.launch` file so we can run the tests without launching the gui interfaces for gazebo and rviz.
