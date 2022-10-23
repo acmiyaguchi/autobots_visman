@@ -31,7 +31,7 @@
           <surface>
             <contact>
               <collide_bitmask>65535</collide_bitmask>
-              <ode/>
+              <ode />
             </contact>
             <friction>
               <ode>
@@ -39,10 +39,10 @@
                 <mu2>50</mu2>
               </ode>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
             </friction>
-            <bounce/>
+            <bounce />
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
@@ -68,7 +68,7 @@
     </model>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
-    <atmosphere type='adiabatic'/>
+    <atmosphere type='adiabatic' />
     <physics type='ode'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
@@ -82,7 +82,7 @@
     <audio>
       <device>default</device>
     </audio>
-    <wind/>
+    <wind />
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <latitude_deg>0</latitude_deg>
@@ -107,13 +107,13 @@
                 <mu2>0.6</mu2>
               </ode>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
             </friction>
             <contact>
-              <ode/>
+              <ode />
             </contact>
-            <bounce/>
+            <bounce />
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
@@ -124,11 +124,16 @@
               <size>1.4 0.8 0.04</size>
             </box>
           </geometry>
-          <material>
+          <!-- <material>
             <script>
               <uri>file://media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
+          </material> -->
+          <material>
+            <!-- red -->
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
           </material>
         </visual>
         <collision name='front_left_leg'>
@@ -142,14 +147,14 @@
           <max_contacts>10</max_contacts>
           <surface>
             <contact>
-              <ode/>
+              <ode />
             </contact>
-            <bounce/>
+            <bounce />
             <friction>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
-              <ode/>
+              <ode />
             </friction>
           </surface>
         </collision>
@@ -179,14 +184,14 @@
           <max_contacts>10</max_contacts>
           <surface>
             <contact>
-              <ode/>
+              <ode />
             </contact>
-            <bounce/>
+            <bounce />
             <friction>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
-              <ode/>
+              <ode />
             </friction>
           </surface>
         </collision>
@@ -216,14 +221,14 @@
           <max_contacts>10</max_contacts>
           <surface>
             <contact>
-              <ode/>
+              <ode />
             </contact>
-            <bounce/>
+            <bounce />
             <friction>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
-              <ode/>
+              <ode />
             </friction>
           </surface>
         </collision>
@@ -253,14 +258,14 @@
           <max_contacts>10</max_contacts>
           <surface>
             <contact>
-              <ode/>
+              <ode />
             </contact>
-            <bounce/>
+            <bounce />
             <friction>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
-              <ode/>
+              <ode />
             </friction>
           </surface>
         </collision>
@@ -319,10 +324,10 @@
                 <fdir1>0 0 0</fdir1>
               </ode>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
             </friction>
-            <bounce/>
+            <bounce />
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
@@ -331,7 +336,8 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>/home/anthony/robotics/autobots/src/realsense-ros-gazebo/realsense-ros/realsense2_description/meshes/d435.dae</uri>
+              <uri
+              >/home/anthony/robotics/autobots/src/realsense-ros-gazebo/realsense-ros/realsense2_description/meshes/d435.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -442,13 +448,19 @@
         <colorTopicName>color/image_raw</colorTopicName>
         <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
         <infrared1TopicName>infra1/image_raw</infrared1TopicName>
-        <infrared1CameraInfoTopicName>infra1/camera_info</infrared1CameraInfoTopicName>
+        <infrared1CameraInfoTopicName
+        >infra1/camera_info</infrared1CameraInfoTopicName>
         <infrared2TopicName>infra2/image_raw</infrared2TopicName>
-        <infrared2CameraInfoTopicName>infra2/camera_info</infrared2CameraInfoTopicName>
-        <colorOpticalframeName>camera_color_optical_frame</colorOpticalframeName>
-        <depthOpticalframeName>camera_depth_optical_frame</depthOpticalframeName>
-        <infrared1OpticalframeName>camera_left_ir_optical_frame</infrared1OpticalframeName>
-        <infrared2OpticalframeName>camera_right_ir_optical_frame</infrared2OpticalframeName>
+        <infrared2CameraInfoTopicName
+        >infra2/camera_info</infrared2CameraInfoTopicName>
+        <colorOpticalframeName
+        >camera_color_optical_frame</colorOpticalframeName>
+        <depthOpticalframeName
+        >camera_depth_optical_frame</depthOpticalframeName>
+        <infrared1OpticalframeName
+        >camera_left_ir_optical_frame</infrared1OpticalframeName>
+        <infrared2OpticalframeName
+        >camera_right_ir_optical_frame</infrared2OpticalframeName>
         <rangeMinDepth>0.2</rangeMinDepth>
         <rangeMaxDepth>10.0</rangeMaxDepth>
         <pointCloud>1</pointCloud>
@@ -471,10 +483,10 @@
         </link>
       </model>
       <model name='robot'>
-        <pose>-2 -1 2 0 1 0</pose>
+        <pose>-2 -1 2 0 0.75 0</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose>-2 -1 2 0 1 0</pose>
+          <pose>-2 -1 2 0 0.75 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -494,12 +506,5 @@
         <pose>0 0 10 0 -0 0</pose>
       </light>
     </state>
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose>5 -5 2 0 0.275643 2.35619</pose>
-        <view_controller>orbit</view_controller>
-        <projection_type>perspective</projection_type>
-      </camera>
-    </gui>
   </world>
 </sdf>

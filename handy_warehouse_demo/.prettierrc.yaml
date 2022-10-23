@@ -1,0 +1,7 @@
+overrides:
+  - files:
+      - "*.launch"
+      - "*.world"
+      - "*.test"
+    options:
+      parser: xml
