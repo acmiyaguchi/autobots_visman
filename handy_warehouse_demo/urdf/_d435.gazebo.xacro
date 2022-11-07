@@ -10,7 +10,16 @@ https://github.com/rickstaa/realsense-ros/blob/da38e309c2fbe88e45e6148bf5d944486
 
   <xacro:macro
     name="gazebo_d435"
-    params="camera_name reference_link topics_ns depth_optical_frame color_optical_frame infrared1_optical_frame infrared2_optical_frame publish_pointcloud:=true"
+    params="
+        camera_name
+        reference_link
+        topics_ns
+        depth_optical_frame
+        color_optical_frame
+        infrared1_optical_frame
+        infrared2_optical_frame
+        publish_pointcloud:=true
+        gravity:=0"
   >
 
     <!-- Load parameters to model's main link-->
@@ -19,7 +28,7 @@ https://github.com/rickstaa/realsense-ros/blob/da38e309c2fbe88e45e6148bf5d944486
       <self_collide>0</self_collide>
       <enable_wind>0</enable_wind>
       <kinematic>0</kinematic>
-      <gravity>1</gravity>
+      <gravity>${gravity}</gravity>
       <!--<mu>1</mu>-->
       <mu2>1</mu2>
       <fdir1>0 0 0</fdir1>
