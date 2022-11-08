@@ -58,20 +58,20 @@
 
   <!-- launch table + camera -->
 
-  <!-- 1.2 is the shortest table, but at some point it might be best to make a more realistic table. -->
   <param
-    name="table_description"
-    textfile="$(find handy_warehouse_demo)/models/table/model-1_2.sdf"
+    name="model_description"
+    textfile="$(find handy_warehouse_demo)/models/textured_box/description.sdf"
   />
 
-  <!-- load this at the origin -->
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <arg name="distance" default="0.3" />
   <node
-    name="table_spawner"
+    name="model_spawner"
     pkg="gazebo_ros"
     type="spawn_model"
     respawn="false"
     output="screen"
-    args="-sdf -param table_description -model table"
+    args="-sdf -param model_description -model box"
   />
 
   <!-- now load the camera -->
