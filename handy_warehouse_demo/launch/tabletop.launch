@@ -5,21 +5,22 @@
   <arg name="name" default="camera" />
   <arg name="topics_ns" default="camera" />
   <arg name="add_plug" default="false" />
-  <arg name="publish_pointcloud" default="false" />
+  <arg name="publish_pointcloud" default="true" />
   <arg
     name="model"
-    default="$(find realsense2_description)/urdf/test_d435_camera.urdf.xacro"
+    default="$(find handy_warehouse_demo)/urdf/d435_camera.urdf.xacro"
   />
 
   <!-- Load the sdf model only the parameter server -->
   <param
     name="robot_description"
-    command="$(find xacro)/xacro --inorder $(arg model)
+    command="$(find xacro)/xacro $(arg model)
       use_nominal_extrinsics:=true
       publish_pointcloud:=$(arg publish_pointcloud)
       add_plug:=$(arg add_plug)
       name:=$(arg name)
-      topics_ns:=$(arg topics_ns)"
+      topics_ns:=$(arg topics_ns)
+      gravity:=0"
   />
 
   <node
@@ -54,6 +55,44 @@
     </node>
   </group>
 
+
+  <!-- launch table + camera -->
+
+  <!-- 1.2 is the shortest table, but at some point it might be best to make a more realistic table. -->
+  <param
+    name="table_description"
+    textfile="$(find handy_warehouse_demo)/models/table/model-1_2.sdf"
+  />
+
+  <!-- load this at the origin -->
+  <node
+    name="table_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    args="-sdf -param table_description -model table"
+  />
+
+  <!-- now load the camera -->
+    <node
+    name="camera_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    args="
+        -urdf
+        -param robot_description
+        -model camera
+        -unpause
+        -x -2.0
+        -y 0.0
+        -z 1.0
+        -P 0.2
+    "
+  />
+
   <!-- Load gazebo -->
   <arg name="paused" default="false" />
   <arg name="use_sim_time" default="true" />
@@ -62,10 +101,7 @@
   <arg name="gui" default="true" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg
-      name="world_name"
-      value="$(find handy_warehouse_demo)/worlds/tabletop.world"
-    />
+  <arg name="world_name" default="worlds/empty.world" />
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)" />
