@@ -22,7 +22,7 @@ repos:
           - prettier@2.7.1
           - "@prettier/plugin-xml@2.2.0"
       - id: prettier
-        files: .(launch|test)$
+        files: .(launch|test|world)$
         additional_dependencies:
           - prettier@2.7.1
           - "@prettier/plugin-xml@2.2.0"
@@ -30,3 +30,4 @@ repos:
     rev: v2.2.1
     hooks:
       - id: codespell
+        exclude: .ipynb

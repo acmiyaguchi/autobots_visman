@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <model name="box">
+    <static>true</static>
+    <link name="box_link">
+      <velocity_decay>
+        <linear>
+            0.5
+          </linear>
+      </velocity_decay>
+
+      <inertial>
+        <mass>10</mass>
+      </inertial>
+
+      <!-- this is the bottom of the box -->
+      <collision name="bottom_collision">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="bottom_visual">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- this is the top of the box -->
+      <collision name="box_collision">
+        <pose>0 0 0.5 0 0 0</pose>
+        <surface>
+          <contact>
+            <collide_without_contact>true</collide_without_contact>
+          </contact>
+          <friction>
+            <bullet>
+              <friction>1.0</friction>
+              <friction2>1.0</friction2>
+              <fdir1>0 0 0</fdir1>
+              <rolling_friction>1.0</rolling_friction>
+            </bullet>
+          </friction>
+        </surface>
+        <geometry>
+          <box>
+            <size>1 1 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- https://classic.gazebosim.org/tutorials?tut=color_model -->
+      <visual name="box_visual">
+        <pose>0 0 0.5 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1 1 0.01</size>
+          </box>
+        </geometry>
+        <material>
+          <!-- white box -->
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <!-- https://answers.ros.org/question/257694/questions-to-sdf-urdf-xacro-material-textures-using-gazebo/ -->
+          <script>
+            <uri>model://textured_box/materials/scripts</uri>
+            <uri>model://textured_box/materials/textures</uri>
+            <name>Grid/Simple</name>
+          </script>
+        </material>
+      </visual>
+
+      <sensor name='box_contact' type='contact'>
+        <contact>
+          <collision>box_collision</collision>
+        </contact>
+      </sensor>
+
+    </link>
+  </model>
+</sdf>
