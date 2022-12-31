@@ -12,6 +12,11 @@ pre-commit install
 
 Make sure you have the following repositories checked out into your catkin workspace:
 
+On a clean Ubuntu 20.04 instance, install [ROS Noetic](http://wiki.ros.org/noetic/Installation) via `ros-noetic-desktop-full`.
+Also install [catkin_tools](https://catkin-tools.readthedocs.io/en/stable/installing.html).
+
+Add the following packages to your catkin workspace:
+
 ```bash
 cd src
 
@@ -19,6 +24,18 @@ git clone git@github.com:ivalab/simData.git
 git clone git@github.com:ivaROS/ivaHandy.git
 git clone --recurse-submodules git@github.com:rickstaa/realsense-ros-gazebo.git
 git clone git@github.com:machinekoder/ros_pytest.git
+```
+
+Install all the dependencies via [`rosdep`](http://wiki.ros.org/rosdep) (or by hand):
+
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+Build the packages:
+
+```bash
+catkin build
 ```
 
 Then launch one of the demos.
