@@ -20,7 +20,7 @@ def draw_checkerboard(
     # draw a checkboard pattern, filling in every other quadrant with black
     for i in range(n_grid):
         for j in range(n_grid):
-            if (i + j) % 2 != 0:
+            if (i + j) % 2 == 0:
                 continue
             i_size = shape[0] // n_grid
             j_size = shape[1] // n_grid
