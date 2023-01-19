@@ -10,11 +10,11 @@ import numpy as np
 def draw_checkerboard(
     n_grid: int,
     shape: Tuple[int, int, int] = (512, 512, 3),
-    color: Tuple[int, int, int] = (255, 0, 0),
+    # defaults to white
+    color: Tuple[int, int, int] = (255, 255, 255),
 ) -> np.array:
     """Create an image that displays a texture."""
     texture = np.zeros(shape, dtype=np.uint8)
-    # create a texture with a red background
     texture[:, :, :] = color
 
     # draw a checkboard pattern, filling in every other quadrant with black
