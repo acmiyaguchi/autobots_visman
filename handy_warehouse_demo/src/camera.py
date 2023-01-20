@@ -62,8 +62,16 @@ def get_model_state(name="camera"):
     return camera_state
 
 
-def get_camera_image(topic="/camera/color/image_raw"):
+def get_camera_image(topic):
     bridge = CvBridge()
     msg = rospy.wait_for_message(topic, Image)
     rgb = bridge.imgmsg_to_cv2(msg, msg.encoding)
     return rgb
+
+
+def get_camera_image_rgb(topic="/camera/color/image_raw"):
+    return get_camera_image(topic)
+
+
+def get_camera_image_depth(topic="/camera/aligned_depth_to_color/image_raw"):
+    return get_camera_image(topic)
