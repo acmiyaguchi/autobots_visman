@@ -86,7 +86,7 @@ We add a red box to the environment so that we have something to observe.
 We add a new `sdf` model to the project directory.
 We write a script to obtain color and depth images, which runs on delay as a node in a launch file for testing the camera.
 
-![bridge blcok](images/2022-09-29_opencv-bridge-block.png)
+![bridge block](images/2022-09-29_opencv-bridge-block.png)
 
 To wrap everything together, we create a test directory that takes advantage of catkin tests and the `pytest` framework.
 
