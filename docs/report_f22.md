@@ -93,11 +93,11 @@ To wrap everything together, we create a test directory that takes advantage of 
 ```XML
 <!-- tests/camera_box.test -->
 <launch>
-  <include file="$(find handy_warehouse_demo)/launch/camera_box.launch">
+  <include file="$(find visman_learning_adventure)/launch/camera_box.launch">
     <arg name="GUI" value="false" />
   </include>
 
-  <param name="test_module" value="$(find handy_warehouse_demo)/tests" />
+  <param name="test_module" value="$(find visman_learning_adventure)/tests" />
   <test
     test-name="camera_box"
     pkg="ros_pytest"
@@ -114,8 +114,8 @@ The test does two things: first, it checks that the camera can detect red pixels
 ```bash
 $ catkin test --this
 
-[handy_warehouse_demo.rosunit-camera_box/test_camera_can_see_red_box][passed]
-[handy_warehouse_demo.rosunit-camera_box/test_camera_red_increases_when_box_moves_closer][passed]
+[visman_learning_adventure.rosunit-camera_box/test_camera_can_see_red_box][passed]
+[visman_learning_adventure.rosunit-camera_box/test_camera_red_increases_when_box_moves_closer][passed]
 
 SUMMARY
  * RESULT: SUCCESS

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(handy_warehouse_demo)
+project(visman_learning_adventure)
 
 find_package(catkin REQUIRED COMPONENTS)
 

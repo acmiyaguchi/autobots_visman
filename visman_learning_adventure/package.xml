@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <package format="2">
-  <name>handy_warehouse_demo</name>
+  <name>visman_learning_adventure</name>
   <version>0.0.0</version>
-  <description>The handy_warehouse_demo package</description>
+  <description>The visman_learning_adventure package</description>
   <maintainer email="acmiyaguchi@gatech.edu">Anthony Miyaguchi</maintainer>
   <license>BSD</license>
 
