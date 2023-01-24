@@ -60,7 +60,7 @@ Then the box can be spawned via `gazebo_ros` without having to muck around with 
 ```xml
   <param
     name="model_description"
-    textfile="$(find handy_warehouse_demo)/models/box/description.sdf"
+    textfile="$(find visman_learning_adventure)/models/box/description.sdf"
   />
   <arg name="distance" default="0.3" />
   <node
@@ -73,10 +73,10 @@ Then the box can be spawned via `gazebo_ros` without having to muck around with 
   />
 ```
 
-The full launch file can be viewed under [handy_warehouse_demo/launch/camera_box.launch](../handy_warehouse_demo/launch/camera_box.launch).
+The full launch file can be viewed under [visman_learning_adventure/launch/camera_box.launch](../visman_learning_adventure/launch/camera_box.launch).
 
 ```bash
-roslaunch handy_warehouse_demo camera_box.launch
+roslaunch visman_learning_adventure camera_box.launch
 ```
 
 Like before, we get a gazebo and rviz window with the camera sensor and model. We also get a red box placed directly in front of the camera.
@@ -92,7 +92,7 @@ _**figure:** a depth reading of the block in front of the camera_
 We can pass arguments into the launch to adjust the distance:
 
 ```bash
-roslaunch handy_warehouse_demo camera_box.launch distance:=0.5
+roslaunch visman_learning_adventure camera_box.launch distance:=0.5
 ```
 
 This sets the position of the box relative to the origin (which happens to be the location of the camera).
@@ -137,7 +137,7 @@ plt.imshow(img)
 plt.show()
 ```
 
-We demonstrate the use of the bridge inside of [`realsense_image_snapshot.py`](../handy_warehouse_demo/src/realsense_image_snapshot.py) as part of the demo launch file.
+We demonstrate the use of the bridge inside of [`realsense_image_snapshot.py`](../visman_learning_adventure/src/realsense_image_snapshot.py) as part of the demo launch file.
 
 ![](images/2022-09-29_opencv-bridge-block.png)
 
@@ -218,14 +218,14 @@ With the mechanics of subscribing and publishing to topics out of the way, we pu
 - checks that we can subscribe to the `camera` topic and see the red box
 - checks that as we move the box away from the origin, the amount of red is monotonically decreasing
 
-This test helps verify that the environment is set up correctly. Inside of the `handy_warehouse_demo` package directory, we can run the following command:
+This test helps verify that the environment is set up correctly. Inside of the `visman_learning_adventure` package directory, we can run the following command:
 
 ```bash
 $ catkin test --this
 
 ...
-[handy_warehouse_demo.rosunit-camera_box/test_camera_can_see_red_box][passed]
-[handy_warehouse_demo.rosunit-camera_box/test_camera_red_increases_when_box_moves_closer][passed]
+[visman_learning_adventure.rosunit-camera_box/test_camera_can_see_red_box][passed]
+[visman_learning_adventure.rosunit-camera_box/test_camera_red_increases_when_box_moves_closer][passed]
 
 SUMMARY
  * RESULT: SUCCESS
@@ -234,7 +234,7 @@ SUMMARY
  * FAILURES: 0
 ```
 
-See [tests/camera_box.test](../handy_warehouse_demo/tests/camera_box.test) and the [test_camera_box.py](../handy_warehouse_demo/tests/test_camera_box.py) for the implementation of the unit tests.
+See [tests/camera_box.test](../visman_learning_adventure/tests/camera_box.test) and the [test_camera_box.py](../visman_learning_adventure/tests/test_camera_box.py) for the implementation of the unit tests.
 
 We take use [python_ros](https://github.com/machinekoder/ros_pytest), which will need to be added to the catkin workspace. I personally find it much easier to use pytest over the nose or unittest packages. There are a few things that I found interesting while putting together the tests:
 

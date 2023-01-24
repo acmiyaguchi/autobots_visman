@@ -44,17 +44,18 @@ Then launch one of the demos.
 # ensure you source the setup file for roslaunch
 source devel/setup.zsh
 
-roslaunch handy_warehouse_demo empty_world.launch
+roslaunch visman_learning_adventure empty_world.launch
 ```
 
 Here's a list of launch files included in this project, building up into tasks of larger complexity.
 
-| project              | name        | description                                              |
-| -------------------- | ----------- | -------------------------------------------------------- |
-| handy_warehouse_demo | empty_world | setup an empty world in gazebo                           |
-| handy_warehouse_demo | hammer      | import a model from the 3d warehouse                     |
-| handy_warehouse_demo | arm         | launch a world with the handy arm                        |
-| handy_warehouse_demo | camera_box  | launch a world with a realsense camera in front of a box |
+| project                   | name        | description                                                                   |
+| ------------------------- | ----------- | ----------------------------------------------------------------------------- |
+| visman_learning_adventure | empty_world | setup an empty world in gazebo                                                |
+| visman_learning_adventure | hammer      | import a model from the 3d warehouse                                          |
+| visman_learning_adventure | arm         | launch a world with the handy arm                                             |
+| visman_learning_adventure | camera_box  | launch a world with a realsense camera in front of a box                      |
+| visman_learning_adventure | tabletop    | launch a world with a box with a checkerboard pattern, calibration attempt #1 |
 
 To run unit tests:
 

@@ -1,9 +1,9 @@
 <launch>
-  <include file="$(find handy_warehouse_demo)/launch/camera_box.launch">
+  <include file="$(find visman_learning_adventure)/launch/camera_box.launch">
     <arg name="gui" value="false" />
   </include>
 
-  <param name="test_module" value="$(find handy_warehouse_demo)/tests" />
+  <param name="test_module" value="$(find visman_learning_adventure)/tests" />
   <test
     test-name="camera_box"
     pkg="ros_pytest"

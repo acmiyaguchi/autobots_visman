@@ -34,7 +34,7 @@
   />
   <param
     name="model_description"
-    textfile="$(find handy_warehouse_demo)/models/box/description.sdf"
+    textfile="$(find visman_learning_adventure)/models/box/description.sdf"
   />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
@@ -69,7 +69,7 @@
 
   <node
     name="image_snapshot"
-    pkg="handy_warehouse_demo"
+    pkg="visman_learning_adventure"
     type="realsense_image_snapshot.py"
     output="screen"
     args="--sleep 3"

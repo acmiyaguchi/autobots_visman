@@ -8,7 +8,7 @@
   <arg name="publish_pointcloud" default="true" />
   <arg
     name="model"
-    default="$(find handy_warehouse_demo)/urdf/d435_camera.urdf.xacro"
+    default="$(find visman_learning_adventure)/urdf/d435_camera.urdf.xacro"
   />
 
   <!-- Load the sdf model only the parameter server -->
@@ -60,7 +60,7 @@
 
   <param
     name="model_description"
-    textfile="$(find handy_warehouse_demo)/models/textured_box/description.sdf"
+    textfile="$(find visman_learning_adventure)/models/textured_box/description.sdf"
   />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
