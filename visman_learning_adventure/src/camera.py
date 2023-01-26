@@ -1,4 +1,4 @@
-from typing import Tuple, Union
+from typing import List, Optional, Tuple, Union
 
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -195,14 +195,22 @@ def compute_dlt(x_src: np.ndarray, x_dst: np.ndarray) -> np.ndarray:
     return P
 
 
-def draw_aruco_grid(rows, cols, figsize=(10, 10)):
+def draw_aruco_grid(
+    rows: int, cols: int, ids: Optional[List[int]], figsize: Tuple[int, int] = (10, 10)
+):
+    """Draw a grid of aruco markers. Optionally apply a list of ids."""
+    if not ids:
+        ids = list(range(rows * cols))
+    if ids and len(ids) != rows * cols:
+        raise ValueError("Number of ids must match number of markers")
+
     # https://docs.opencv.org/3.4/d9/d6a/group__aruco.html#gac84398a9ed9dd01306592dd616c2c975
     aruco_dict = cv.aruco.Dictionary_get(cv.aruco.DICT_4X4_50)
 
     # 3x3 subplot
     fig, axes = plt.subplots(rows, cols, figsize=figsize)
-    for i, ax in enumerate(axes.flatten()):
-        img = cv.aruco.drawMarker(aruco_dict, i, 200)
+    for id, ax in zip(ids, axes.flatten()):
+        img = cv.aruco.drawMarker(aruco_dict, id, 200)
         ax.imshow(img, cmap="gray", interpolation="nearest")
         ax.axis("off")
 
@@ -211,14 +219,12 @@ def extract_aruco_tags(rgb, dictionary=cv.aruco.DICT_4X4_50):
     gray = cv.cvtColor(rgb, cv.COLOR_BGR2GRAY)
     aruco_dict = cv.aruco.Dictionary_get(dictionary)
     parameters = cv.aruco.DetectorParameters_create()
-    corners, ids, rejectedImgPoints = cv.aruco.detectMarkers(
-        gray, aruco_dict, parameters=parameters
-    )
+    corners, ids, _ = cv.aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
     frame_markers = cv.aruco.drawDetectedMarkers(rgb.copy(), corners, ids)
     return frame_markers, corners, ids
 
 
-def draw_aruco_tags(rgb, frame_markers, corners, ids):
+def draw_aruco_tags(frame_markers, corners, ids):
     plt.imshow(frame_markers)
     for i in range(len(ids)):
         c = corners[i][0]

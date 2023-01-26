@@ -1,0 +1,30 @@
+# pip install j2cli[yaml]
+# j2 description.sdf.j2 description.yaml > description.sdf
+
+# each of these faces is a separate box (effectively a plane) that wraps a unit
+# box core of size 1x1x1
+faces:
+  - prefix: face0
+    pose: "0 0 0.5"
+    size: "1 1 0.01"
+    script_name: ArcuoFace0
+  - prefix: face1
+    pose: "0 0 -0.5"
+    size: "1 1 0.01"
+    script_name: ArcuoFace1
+  - prefix: face2
+    pose: "0.5 0 0"
+    size: "0.01 1 1"
+    script_name: ArcuoFace2
+  - prefix: face3
+    pose: "-0.5 0 0"
+    size: "0.01 1 1"
+    script_name: ArcuoFace3
+  - prefix: face4
+    pose: "0 0.5 0"
+    size: "1 0.01 1"
+    script_name: ArcuoFace4
+  - prefix: face5
+    pose: "0 -0.5 0"
+    size: "1 0.01 1"
+    script_name: ArcuoFace5
