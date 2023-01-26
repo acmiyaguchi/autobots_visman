@@ -1,6 +1,7 @@
 from typing import Tuple, Union
 
 import cv2 as cv
+import matplotlib.pyplot as plt
 import numpy as np
 import rospy
 from cv_bridge import CvBridge
@@ -192,3 +193,34 @@ def compute_dlt(x_src: np.ndarray, x_dst: np.ndarray) -> np.ndarray:
     # take the smallest singular value
     P = V[-1].reshape(3, 4)
     return P
+
+
+def draw_aruco_grid(rows, cols, figsize=(10, 10)):
+    # https://docs.opencv.org/3.4/d9/d6a/group__aruco.html#gac84398a9ed9dd01306592dd616c2c975
+    aruco_dict = cv.aruco.Dictionary_get(cv.aruco.DICT_4X4_50)
+
+    # 3x3 subplot
+    fig, axes = plt.subplots(rows, cols, figsize=figsize)
+    for i, ax in enumerate(axes.flatten()):
+        img = cv.aruco.drawMarker(aruco_dict, i, 200)
+        ax.imshow(img, cmap="gray", interpolation="nearest")
+        ax.axis("off")
+
+
+def extract_aruco_tags(rgb, dictionary=cv.aruco.DICT_4X4_50):
+    gray = cv.cvtColor(rgb, cv.COLOR_BGR2GRAY)
+    aruco_dict = cv.aruco.Dictionary_get(dictionary)
+    parameters = cv.aruco.DetectorParameters_create()
+    corners, ids, rejectedImgPoints = cv.aruco.detectMarkers(
+        gray, aruco_dict, parameters=parameters
+    )
+    frame_markers = cv.aruco.drawDetectedMarkers(rgb.copy(), corners, ids)
+    return frame_markers, corners, ids
+
+
+def draw_aruco_tags(rgb, frame_markers, corners, ids):
+    plt.imshow(frame_markers)
+    for i in range(len(ids)):
+        c = corners[i][0]
+        plt.plot([c[:, 0].mean()], [c[:, 1].mean()], "o", label="id={0}".format(ids[i]))
+    plt.axis("off")
