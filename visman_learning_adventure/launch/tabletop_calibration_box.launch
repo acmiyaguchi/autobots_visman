@@ -89,7 +89,7 @@
       -sdf
       -param calibration_box_description
       -model calibration_box
-      -z 1
+      -z 0.5
     "
   />
 
@@ -107,7 +107,7 @@
         -unpause
         -x -1.0
         -y 0.0
-        -z 3
+        -z 1.5
         -P 0.9
     "
   />

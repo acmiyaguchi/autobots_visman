@@ -1,17 +1,8 @@
 <?xml version="1.0"?>
 <sdf version="1.4">
   <model name="calibration_box">
-    <static>false</static>
+    <static>true</static>
     <link name="calibration_box_link">
-      <velocity_decay>
-        <linear>1.0</linear>
-      </velocity_decay>
-      <gravity>1</gravity>
-
-      <inertial>
-        <mass>10</mass>
-      </inertial>
-
       <!-- these is the box faces -->
 {% for face in faces %}
       <!-- {{ face.prefix }} -->
@@ -22,19 +13,6 @@
             <size>{{ face.size }}</size>
           </box>
         </geometry>
-        <surface>
-          <contact>
-            <collide_without_contact>true</collide_without_contact>
-          </contact>
-          <friction>
-            <bullet>
-              <friction>1.0</friction>
-              <friction2>1.0</friction2>
-              <fdir1>0 0 0</fdir1>
-              <rolling_friction>1.0</rolling_friction>
-            </bullet>
-          </friction>
-        </surface>
       </collision>
       <visual name="{{ face.prefix }}_visual">
         <pose>{{ face.pose }} 0 0 0</pose>
