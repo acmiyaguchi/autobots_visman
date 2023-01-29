@@ -184,20 +184,22 @@ def compute_dlt(x_src: np.ndarray, x_dst: np.ndarray) -> np.ndarray:
     We construct a matrix A, and then solve for Ap = 0 using SVD. The smallest
     right singular vector of A is the solution to Ap = 0, and we reshape it to a
     3x4 matrix.
+
+    See: https://github.com/acvictor/DLT/blob/master/DLT.py
     """
-    # TODO: vectorize
     A = []
     for src, dst in zip(x_src.tolist(), x_dst.tolist()):
-        x, y, w = src
-        X = np.hstack([dst, 1])
+        x, y, z = src
+        u, v = dst
         A += [
-            np.hstack([np.zeros(4), -w * X, y * X]),
-            np.hstack([w * X, np.zeros(4), -x * X]),
+            np.hstack([x, y, z, 1, np.zeros(4), -u * x, -u * y, -u * z, -u]),
+            np.hstack([np.zeros(4), x, y, z, 1, -v * x, -v * y, -v * z, -v]),
         ]
     A = np.array(A)
     _, _, V = np.linalg.svd(A)
     # take the smallest singular value
-    P = V[-1].reshape(3, 4)
+    L = V[-1] / V[-1, -1]
+    P = L.reshape(3, 4)
     return P
 
 
@@ -238,3 +240,55 @@ def draw_aruco_tags(frame_markers, corners, ids):
             [c[:, 0].mean()], [c[:, 1].mean()], s=5, label="id={0}".format(ids[i])
         )
     plt.axis("off")
+
+
+def map_id_to_world_coords(
+    border: int = 10, width: int = 175, total: int = 400, side_length=0.1
+) -> np.ndarray:
+    """Map the aruco tag ids to world coordinates, for our specific calibration box."""
+    b, w = border, width
+    rel_coords = []
+    for x in [b + w / 2, b + w + 35 + w / 2]:
+        for y in [b + w / 2, b + w + 35 + w / 2]:
+            rel_coords.append((x / total, y / total))
+    rel_coords = np.array(rel_coords)
+
+    # let's translate the coordinates so they center around 0
+    rel_coords -= 0.5
+
+    # now scale these so they are in the range [-0.1, 0.1] corresponding to a
+    # unit cube scaled by 1/5
+    rel_coords *= side_length
+
+    # now we have to map these to each of the sides
+    ones = np.ones((4, 1))
+    zeros = np.zeros((4, 1))
+
+    # add a third dimension that's all 0.1
+    top = np.hstack([rel_coords, ones * side_length])
+
+    # the bottom is the same as the top, but mirrored
+    # NOTE: honestly, not sure about this one, but it doesn't particularly
+    # matter because we're not using the bottom side
+    bottom = np.hstack([rel_coords[[1, 0, 3, 2]], zeros])
+
+    # the front side moves the x position to -0.1, which means that our relative
+    # coordinates are now the y and z coordinates.
+
+    y_z_off = np.hstack([zeros, ones * 0.5 * side_length])
+
+    front = np.hstack([ones * -side_length, rel_coords[[1, 3, 0, 2]] + y_z_off])
+
+    # the back side is the same as the front side, but mirrored
+    back = np.hstack([ones * side_length, rel_coords[[3, 1, 2, 0]] + y_z_off])
+
+    # the left side is the same as the back side, but rotated 90 degrees
+    # this means we can likely just transpose dimensions of the front side
+    left = front[:, [1, 0, 2]]
+
+    # the right side is the same as the left side, but mirrored
+    right = back[:, [1, 0, 2]]
+
+    # now we can combine all of these into a single array
+    sides = np.vstack([top, bottom, front, back, left, right])
+    return sides
