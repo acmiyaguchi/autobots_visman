@@ -41,7 +41,13 @@ def get_quaternion_from_euler(
 
 
 def move_camera_pos(
-    x: float, y: float, z: float, pitch: float = 0, name: str = "camera"
+    x: float,
+    y: float,
+    z: float,
+    roll: float = 0,
+    pitch: float = 0,
+    yaw: float = 0,
+    name: str = "camera",
 ) -> None:
     rospy.wait_for_service("/gazebo/set_model_state")
     set_state = rospy.ServiceProxy("/gazebo/set_model_state", SetModelState)
@@ -51,7 +57,7 @@ def move_camera_pos(
     msg.pose.position.y = y
     msg.pose.position.z = z
     # convert pitch to quaternion
-    qx, qy, qz, qw = get_quaternion_from_euler(0, pitch, 0)
+    qx, qy, qz, qw = get_quaternion_from_euler(roll, pitch, yaw)
     msg.pose.orientation.x = qx
     msg.pose.orientation.y = qy
     msg.pose.orientation.z = qz
@@ -228,5 +234,7 @@ def draw_aruco_tags(frame_markers, corners, ids):
     plt.imshow(frame_markers)
     for i in range(len(ids)):
         c = corners[i][0]
-        plt.plot([c[:, 0].mean()], [c[:, 1].mean()], "o", label="id={0}".format(ids[i]))
+        plt.scatter(
+            [c[:, 0].mean()], [c[:, 1].mean()], s=5, label="id={0}".format(ids[i])
+        )
     plt.axis("off")
