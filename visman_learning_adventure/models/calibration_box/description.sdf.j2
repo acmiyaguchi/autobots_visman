@@ -1,43 +1,16 @@
 <?xml version="1.0"?>
 <sdf version="1.4">
-  <model name="box">
-    <static>true</static>
-    <link name="box_link">
+  <model name="calibration_box">
+    <static>false</static>
+    <link name="calibration_box_link">
       <velocity_decay>
-        <linear>
-            0.5
-          </linear>
+        <linear>1.0</linear>
       </velocity_decay>
+      <gravity>1</gravity>
 
       <inertial>
         <mass>10</mass>
       </inertial>
-
-      <!-- this is the box cores -->
-      <collision name="box_core_collision">
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name="box_core_visual">
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>1 1 1 1</ambient>
-          <diffuse>1 1 1 1</diffuse>
-        </material>
-      </visual>
-
-      <sensor name="box_core_contact" type="contact">
-        <contact>
-          <collision>box_core_collision</collision>
-        </contact>
-      </sensor>
 
       <!-- these is the box faces -->
 {% for face in faces %}
@@ -74,8 +47,8 @@
           <ambient>1 1 1 1</ambient>
           <diffuse>1 1 1 1</diffuse>
           <script>
-            <uri>model://tabletop_aruco_test/materials/scripts</uri>
-            <uri>model://tabletop_aruco_test/materials/textures</uri>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
             <name>{{ face.script_name }}</name>
           </script>
         </material>

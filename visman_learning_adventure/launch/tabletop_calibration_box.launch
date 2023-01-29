@@ -68,7 +68,7 @@
   />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <arg name="distance" default="0.3" />
+  <!-- <arg name="distance" default="0.3" />
   <node
     name="tabletop_description"
     pkg="gazebo_ros"
@@ -76,7 +76,7 @@
     respawn="false"
     output="screen"
     args="-sdf -param tabletop_description -model box"
-  />
+  /> -->
 
   <!-- also spawn the calibration box, on top of the table -->
   <node
@@ -85,7 +85,12 @@
     type="spawn_model"
     respawn="false"
     output="screen"
-    args="-sdf -param calibration_box_description -model box -x 0.0 -y 0.0 -z 1.0"
+    args="
+      -sdf
+      -param calibration_box_description
+      -model calibration_box
+      -z 1
+    "
   />
 
   <!-- now load the camera -->
@@ -102,7 +107,7 @@
         -unpause
         -x -1.0
         -y 0.0
-        -z 1.5
+        -z 3
         -P 0.9
     "
   />
