@@ -186,16 +186,27 @@ def _normalize(x, dims=3):
 
     m, s = np.mean(x, 0), np.std(x)
 
-    Tr = (
-        np.array([[s, 0, 0, m[0]], [0, s, 0, m[1]], [0, 0, s, m[2]], [0, 0, 0, 1]])
+    T = np.linalg.inv(
+        np.array(
+            [
+                [s, 0, 0, m[0]],
+                [0, s, 0, m[1]],
+                [0, 0, s, m[2]],
+                [0, 0, 0, 1],
+            ]
+        )
         if dims == 3
-        else np.array([[s, 0, m[0]], [0, s, m[1]], [0, 0, 1]])
+        else np.array(
+            [
+                [s, 0, m[0]],
+                [0, s, m[1]],
+                [0, 0, 1],
+            ]
+        )
     )
 
-    Tr = np.linalg.inv(Tr)
-    x = np.dot(Tr, np.concatenate((x.T, np.ones((1, x.shape[0])))))
-
-    return Tr, x[:dims].T
+    x = T @ np.vstack([x.T, np.ones(x.shape[0])])
+    return T, x[:dims].T
 
 
 def compute_dlt(xyz: np.ndarray, uv: np.ndarray) -> np.ndarray:
@@ -228,7 +239,7 @@ def compute_dlt(xyz: np.ndarray, uv: np.ndarray) -> np.ndarray:
     P = L.reshape(3, 4)
 
     # denormalize
-    P = np.linalg.inv(T_uv) @ P @ T_xyz
+    P = np.linalg.pinv(T_uv) @ P @ T_xyz
     P = P / P[-1, -1]
 
     return P
@@ -274,7 +285,7 @@ def draw_aruco_tags(frame_markers, corners, ids):
 
 
 def map_id_to_world_coords(
-    border: int = 10, width: int = 175, total: int = 400, side_length=0.1
+    border: int = 10, width: int = 175, total: int = 400, side_length=0.2
 ) -> np.ndarray:
     """Map the aruco tag ids to world coordinates, for our specific calibration box."""
     b, w = border, width
@@ -308,10 +319,10 @@ def map_id_to_world_coords(
 
     y_z_off = np.hstack([zeros, ones * 0.5 * side_length])
 
-    front = np.hstack([ones * -side_length, rel_coords[[1, 3, 0, 2]] + y_z_off])
+    front = np.hstack([ones * 0.5 * -side_length, rel_coords[[1, 3, 0, 2]] + y_z_off])
 
     # the back side is the same as the front side, but mirrored
-    back = np.hstack([ones * side_length, rel_coords[[3, 1, 2, 0]] + y_z_off])
+    back = np.hstack([ones * 0.5 * side_length, rel_coords[[3, 1, 2, 0]] + y_z_off])
 
     # the left side is the same as the back side, but rotated 90 degrees
     # this means we can likely just transpose dimensions of the front side

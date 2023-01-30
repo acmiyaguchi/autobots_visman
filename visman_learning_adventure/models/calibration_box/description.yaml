@@ -6,25 +6,25 @@
 faces:
   - prefix: face0
     pose: "0 0 0.1"
-    size: "0.2 0.2 0.01"
+    size: "0.2 0.2 0.001"
     script_name: ArcuoFace0
   - prefix: face1
     pose: "0 0 -0.1"
-    size: "0.2 0.2 0.01"
+    size: "0.2 0.2 0.001"
     script_name: ArcuoFace1
   - prefix: face2
     pose: "0.1 0 0"
-    size: "0.01 0.2 0.2"
+    size: "0.001 0.2 0.2"
     script_name: ArcuoFace2
   - prefix: face3
     pose: "-0.1 0 0"
-    size: "0.01 0.2 0.2"
+    size: "0.001 0.2 0.2"
     script_name: ArcuoFace3
   - prefix: face4
     pose: "0 0.1 0"
-    size: "0.2 0.01 0.2"
+    size: "0.2 0.001 0.2"
     script_name: ArcuoFace4
   - prefix: face5
     pose: "0 -0.1 0"
-    size: "0.2 0.01 0.2"
+    size: "0.2 0.001 0.2"
     script_name: ArcuoFace5
