@@ -284,6 +284,14 @@ def draw_aruco_tags(frame_markers, corners, ids):
     plt.axis("off")
 
 
+def draw_aruco_tags_corners(frame_markers, corners, ids):
+    plt.imshow(frame_markers)
+    for i in range(len(ids)):
+        c = corners[i][0]
+        plt.scatter(c[:, 0], c[:, 1], s=5, label="id={0}".format(ids[i]))
+    plt.axis("off")
+
+
 def map_id_to_world_coords(
     border: int = 10, width: int = 175, total: int = 400, side_length=0.2
 ) -> np.ndarray:
@@ -334,3 +342,92 @@ def map_id_to_world_coords(
     # now we can combine all of these into a single array
     sides = np.vstack([top, bottom, front, back, left, right])
     return sides
+
+
+def map_id_to_world_coords_corners(
+    border: int = 10, width: int = 175, total: int = 400, side_length=0.2
+) -> np.ndarray:
+    """Map the aruco tag ids to world coordinates, for our specific calibration box."""
+    b, w = border, width
+    rel_coords = []
+
+    # let's add points going clockwise around each tag
+    points = [b, b + w, b + w + 35, b + w + 35 + w]
+
+    # NOTE: doing this by hand unfortunately...
+    # corners in clockwise order
+    pos = [
+        # top left
+        (0, 0),
+        (0, 1),
+        (1, 1),
+        (1, 0),
+        # rop right
+        (0, 2),
+        (0, 3),
+        (1, 3),
+        (1, 2),
+        # bottom left
+        (2, 0),
+        (2, 1),
+        (3, 1),
+        (3, 0),
+        # bottom right
+        (2, 2),
+        (2, 3),
+        (3, 3),
+        (3, 2),
+    ]
+    rel_coords = np.array([(points[i] / total, points[j] / total) for i, j in pos])
+
+    # let's translate the coordinates so they center around 0
+    rel_coords -= 0.5
+
+    # now scale these so they are in the range [-0.1, 0.1] corresponding to a
+    # unit cube scaled by 1/5
+    rel_coords *= side_length
+
+    # now we have to map these to each of the sides
+    ones = np.ones((16, 1))
+    zeros = np.zeros((16, 1))
+
+    # you can think of the mapping from a aruco tag to it's corners
+    mapping = np.arange(16).reshape(4, 4)
+
+    def _rotate(order):
+        return np.hstack([mapping[i] for i in order])
+
+    # add a third dimension that's all 0.1
+    top = np.hstack([rel_coords, ones * side_length])
+
+    # the bottom is the same as the top, but mirrored
+    # NOTE: honestly, not sure about this one, but it doesn't particularly
+    # matter because we're not using the bottom side
+    bottom = np.hstack([rel_coords[_rotate([1, 0, 3, 2])], zeros])
+
+    # the front side moves the x position to -0.1, which means that our relative
+    # coordinates are now the y and z coordinates.
+
+    y_z_off = np.hstack([zeros, ones * 0.5 * side_length])
+
+    front = np.hstack(
+        [ones * 0.5 * -side_length, rel_coords[_rotate([1, 3, 0, 2])] + y_z_off]
+    )
+
+    # the back side is the same as the front side, but mirrored
+    back = np.hstack(
+        [ones * 0.5 * side_length, rel_coords[_rotate([3, 1, 2, 0])] + y_z_off]
+    )
+
+    # the left side is the same as the back side, but rotated 90 degrees
+    # this means we can likely just transpose dimensions of the front side
+    left = front[:, [1, 0, 2]]
+
+    # the right side is the same as the left side, but mirrored
+    right = back[:, [1, 0, 2]]
+
+    # now we can combine all of these into a single array
+    sides = np.vstack([top, bottom, front, back, left, right])
+
+    # now reshape them so we have (n, 4, 3)
+    return sides.reshape(-1, 4, 3)
