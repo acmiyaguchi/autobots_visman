@@ -177,7 +177,28 @@ def compute_valid_chessboard_points(mask: np.ndarray, depth: np.ndarray) -> np.n
     return np.array(np.hstack([valid, d[:, np.newaxis]]))
 
 
-def compute_dlt(x_src: np.ndarray, x_dst: np.ndarray) -> np.ndarray:
+def _normalize(x, dims=3):
+    """
+    Normalization of coordinates (centroid to the origin and mean distance of sqrt(2 or 3).
+
+    See: https://github.com/acvictor/DLT/blob/master/DLT.py
+    """
+
+    m, s = np.mean(x, 0), np.std(x)
+
+    Tr = (
+        np.array([[s, 0, 0, m[0]], [0, s, 0, m[1]], [0, 0, s, m[2]], [0, 0, 0, 1]])
+        if dims == 3
+        else np.array([[s, 0, m[0]], [0, s, m[1]], [0, 0, 1]])
+    )
+
+    Tr = np.linalg.inv(Tr)
+    x = np.dot(Tr, np.concatenate((x.T, np.ones((1, x.shape[0])))))
+
+    return Tr, x[:dims].T
+
+
+def compute_dlt(xyz: np.ndarray, uv: np.ndarray) -> np.ndarray:
     """Perform the direct linear transformation (DLT) between two sets of
     points.
 
@@ -187,19 +208,29 @@ def compute_dlt(x_src: np.ndarray, x_dst: np.ndarray) -> np.ndarray:
 
     See: https://github.com/acvictor/DLT/blob/master/DLT.py
     """
+
+    T_xyz, xyz = _normalize(xyz, dims=3)
+    T_uv, uv = _normalize(uv, dims=2)
+
     A = []
-    for src, dst in zip(x_src.tolist(), x_dst.tolist()):
-        x, y, z = src
-        u, v = dst
+    for src, dst in zip(xyz.tolist(), uv.tolist()):
+        X = np.array(src + [1])
+        x, y = dst
         A += [
-            np.hstack([x, y, z, 1, np.zeros(4), -u * x, -u * y, -u * z, -u]),
-            np.hstack([np.zeros(4), x, y, z, 1, -v * x, -v * y, -v * z, -v]),
+            np.hstack([X, np.zeros(4), -x * X]),
+            np.hstack([np.zeros(4), X, -y * X]),
         ]
     A = np.array(A)
+
     _, _, V = np.linalg.svd(A)
     # take the smallest singular value
     L = V[-1] / V[-1, -1]
     P = L.reshape(3, 4)
+
+    # denormalize
+    P = np.linalg.inv(T_uv) @ P @ T_xyz
+    P = P / P[-1, -1]
+
     return P
 
 
