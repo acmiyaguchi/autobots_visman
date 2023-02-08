@@ -1,0 +1,6 @@
+[submodule "vendor/ros_pytest"]
+	path = vendor/ros_pytest
+	url = git@github.com:machinekoder/ros_pytest.git
+[submodule "vendor/realsense-ros-gazebo"]
+	path = vendor/realsense-ros-gazebo
+	url = git@github.com:rickstaa/realsense-ros-gazebo.git
