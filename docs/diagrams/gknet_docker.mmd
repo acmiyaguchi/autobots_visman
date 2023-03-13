@@ -1,0 +1,17 @@
+graph
+    subgraph Host
+        gpu[GPU]
+        subgraph Data
+            datasets
+            models
+        end 
+        gpu --->|passthrough| program
+        subgraph Container
+            volume
+            program[pytorch]
+            volume --> program
+        end
+
+        datasets -->|/app/datasets| volume
+        models -->|/app/models| volume
+    end
