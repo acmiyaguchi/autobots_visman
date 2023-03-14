@@ -173,10 +173,6 @@ roslaunch finalarm_moveit_config moveit_rviz.launch
 
 ## Reproducing GKNet Benchmarks: Grasp Detection
 
-![GKNet demonstration](https://github.com/ivalab/GraspKpNet/blob/fc9553d41fe435ce107101e3c55a32329789fcd0/demo/fig_ill_mul_resized.png?raw=true){height=90%}
-
-## Reproducing GKNet Benchmarks: Grasp Detection (cont.)
-
 Grasp detection is the task of **detecting graspable objects** in an image and **predicting the grasp pose** of the object.
 
 Grasping detection task can be simplified by finding **keypoint pairs** $(x, y, \theta, w)^T$ instead of bounding boxes.
@@ -186,6 +182,10 @@ Grasping detection task can be simplified by finding **keypoint pairs** $(x, y, 
 [Xu, Ruinian, Fu-Jen Chu, and Patricio A. Vela. "Gknet: grasp keypoint network for grasp candidates detection." The International Journal of Robotics Research 41, no. 4 (2022): 361-389.][gknet_paper]
 
 [gknet_paper]: https://arxiv.org/abs/2106.08497
+
+## Reproducing GKNet Benchmarks: Grasp Detection (cont.)
+
+![GKNet demonstration](https://github.com/ivalab/GraspKpNet/blob/fc9553d41fe435ce107101e3c55a32329789fcd0/demo/fig_ill_mul_resized.png?raw=true){height=90%}
 
 ## Reproducing GKNet Benchmarks: Datasets
 
