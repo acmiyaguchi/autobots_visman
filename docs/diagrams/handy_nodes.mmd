@@ -1,0 +1,14 @@
+graph TD
+    subgraph ROS
+        master[ROS master]
+        master --> controller[joint controllers]
+        controller -.-> start_controller[trajectory controllers]
+        start_controller -.->robot_state_pub[robot state publisher]
+        controller --> robot_state_pub
+        master --> robot_state_pub
+    end
+    subgraph Handy
+        dynamixel
+    end
+
+    dynamixel -->|"/dev/ttyUSB0"| controller
