@@ -1,0 +1,28 @@
+graph 
+    subgraph xenial/kinetic
+        core[ROS core]
+        joint[control joints]
+        trajectory[control trajectory]
+    end
+    subgraph focal/noetic
+        pose[estimate pose]
+        decision[control decision]
+    end
+    subgraph handy
+        dynamixel
+        camera
+    end
+
+    pose -.-> core
+    decision -.-> core
+    camera -->|raw feed| pose
+    pose -->|scene understanding| decision
+    decision -->|arm position| trajectory
+
+    core -.-> joint
+    core -.-> trajectory
+
+    
+    trajectory -->|compute kinematics| joint
+    joint -->|move arm| dynamixel
+
