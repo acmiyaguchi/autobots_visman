@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <model name="calibration_box">
+    <static>true</static>
+    <link name="calibration_box_link">
+      <!-- these is the box faces -->
+
+      <!-- face0 -->
+      <collision name="face0_collision">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.2 0.001</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face0_visual">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.2 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace0</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- face1 -->
+      <collision name="face1_collision">
+        <pose>0 0 -0.1 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.2 0.001</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face1_visual">
+        <pose>0 0 -0.1 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.2 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace1</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- face2 -->
+      <collision name="face2_collision">
+        <pose>0.1 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.2 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face2_visual">
+        <pose>0.1 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.2 0.2</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace2</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- face3 -->
+      <collision name="face3_collision">
+        <pose>-0.1 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.2 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face3_visual">
+        <pose>-0.1 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.2 0.2</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace3</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- face4 -->
+      <collision name="face4_collision">
+        <pose>0 0.1 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.001 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face4_visual">
+        <pose>0 0.1 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.001 0.2</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace4</name>
+          </script>
+        </material>
+      </visual>
+
+      <!-- face5 -->
+      <collision name="face5_collision">
+        <pose>0 -0.1 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.001 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="face5_visual">
+        <pose>0 -0.1 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2 0.001 0.2</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>ArcuoFace5</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

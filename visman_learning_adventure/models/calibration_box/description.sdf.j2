@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <model name="calibration_box">
+    <static>true</static>
+    <link name="calibration_box_link">
+      <!-- these is the box faces -->
+{% for face in faces %}
+      <!-- {{ face.prefix }} -->
+      <collision name="{{ face.prefix }}_collision">
+        <pose>{{ face.pose }} 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>{{ face.size }}</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="{{ face.prefix }}_visual">
+        <pose>{{ face.pose }} 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>{{ face.size }}</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <script>
+            <uri>model://calibration_box/materials/scripts</uri>
+            <uri>model://calibration_box/materials/textures</uri>
+            <name>{{ face.script_name }}</name>
+          </script>
+        </material>
+      </visual>
+{% endfor %}
+    </link>
+  </model>
+</sdf>
