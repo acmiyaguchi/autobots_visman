@@ -1,0 +1,44 @@
+graph TD
+    subgraph d435
+        color[/"/camera/color/image_raw"/]
+        depth[/"/camera/depth/image_raw"/]
+    end
+    subgraph gknet
+        keypoints[/"/gknet/keypoints"/]
+        filtered[/"/gknet/object_filter"/]
+    end
+    subgraph segmentation
+        bbox["/scene/objects"]
+    end
+    subgraph scene graph
+        scene[/"/scene/graph"/]
+    end
+    subgraph handy
+        controller[/"/joint_trajectory_controller"/]
+    end
+    subgraph calibration
+        matrix_camera_link
+        robot_aruco_link
+    end
+    subgraph user
+        selected[/"/pick_and_place/selected_grasp"/]
+    end
+    subgraph tf
+        project[/"/pick_and_place/projected_grasp"/]
+    end
+
+    bbox --> filtered
+    filtered --> keypoints
+    color ---> keypoints
+    depth --> keypoints
+
+    scene --> selected
+    keypoints --> selected
+    
+    selected --> project
+    matrix_camera_link --> project
+    robot_aruco_link --> project
+
+    project --> controller
+
+    bbox --> scene
