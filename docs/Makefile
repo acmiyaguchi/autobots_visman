@@ -1,4 +1,4 @@
-.PHONY: all clean slides-0 slides-1 slides-2
+.PHONY: all clean slides-0 slides-1 slides-2 report-spr23
 
 slides-0:
 	pandoc -s \
@@ -17,3 +17,6 @@ slides-2:
 		-t beamer \
 		-o rendered/slides_spr23_02_pick_and_place.pdf \
 		slides_spr23_02_pick_and_place.md
+
+report-spr23:
+	pandoc -s -o rendered/report_spr23.pdf report_spr23.md
