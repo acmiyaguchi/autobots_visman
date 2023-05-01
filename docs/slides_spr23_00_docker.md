@@ -15,11 +15,8 @@ comment: |
   ```bash
   pandoc -s -t beamer -o rendered/slides_spr23_00_docker.pdf slides_spr23_00_docker.md
   ```
+dpi: 300
 ---
-
-## Link to Slides
-
-![short.acmiyaguchi.me/autobots-spr23-1](images/slides_spr23_00_docker/qr-slides.png){height=60%}
 
 ## Outline
 
@@ -185,7 +182,7 @@ Grasping detection task can be simplified by finding **keypoint pairs** $(x, y, 
 
 ## Reproducing GKNet Benchmarks: Grasp Detection (cont.)
 
-![GKNet demonstration](https://github.com/ivalab/GraspKpNet/blob/fc9553d41fe435ce107101e3c55a32329789fcd0/demo/fig_ill_mul_resized.png?raw=true){height=90%}
+![GKNet demonstration](images/slides_spr23_00_docker/fig_ill_mul_resized.png){height=90%}
 
 ## Reproducing GKNet Benchmarks: Datasets
 
