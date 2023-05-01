@@ -18,6 +18,9 @@ slides-2:
 		-o rendered/slides_spr23_02_pick_and_place.pdf \
 		slides_spr23_02_pick_and_place.md
 
+report-f22:
+	pandoc -s -o rendered/report_f22.pdf report_f22.md camera.md
+
 report-spr23: report_spr23.md
 	pandoc -s -o rendered/tmp.pdf report_spr23.md
 	pdftk \
