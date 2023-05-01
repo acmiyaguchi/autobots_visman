@@ -9,6 +9,7 @@ author: |
 date: 2022-12-11
 colorlinks: true
 toc: true
+dpi: 300
 ---
 
 <!---
